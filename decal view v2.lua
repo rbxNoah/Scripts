@@ -12,13 +12,14 @@ for id in decalIDs:gmatch("%d+") do
     table.insert(ids, id)
 end
 
+local totalBlocks = #ids
+local gridSize = math.ceil(math.sqrt(totalBlocks)) -- Define o tamanho da grade (X por Y)
 local startPosition = Vector3.new(0, 0, 0) -- Posição inicial dos blocos
 local blockSize = Vector3.new(5, 5, 2) -- Tamanho dos blocos
-local blocksPerRow = 4 -- Quantos blocos no eixo X antes de subir no eixo Y
 
 for index, id in ipairs(ids) do
-    local x = (index - 1) % blocksPerRow * blockSize.X
-    local y = math.floor((index - 1) / blocksPerRow) * blockSize.Y
+    local x = ((index - 1) % gridSize) * blockSize.X
+    local y = math.floor((index - 1) / gridSize) * blockSize.Y
     local position = startPosition + Vector3.new(x, y, 0)
 
     -- Criar bloco
